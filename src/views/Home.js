@@ -1,8 +1,9 @@
 import React from 'react';
+import GreetingPanel from '../components/organisms/GreetingPanel/GreetingPanel';
 
 const Home = () => (
     <div>
-        Home view
+        <GreetingPanel />
     </div>
 )
 
