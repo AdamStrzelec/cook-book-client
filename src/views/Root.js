@@ -4,6 +4,8 @@ import { createGlobalStyle } from 'styled-components';
 import Home from './Home';
 import About from './About';
 import Recipes from './Recipes';
+import Contact from './Contact';
+import routes from '../routes';
 
 const GlobalStyle = createGlobalStyle`
   @import url('https://fonts.googleapis.com/css?family=Montserrat:300,600');
@@ -35,9 +37,10 @@ class Root extends Component {
         <GlobalStyle/>
         <Router>
           <Switch>
-          <Route exact path="/" component={Home} />
-          <Route path="/about" component={About} />
-          <Route path="/recipes" component={Recipes} />
+          <Route exact path={routes.home} component={Home} />
+          <Route path={routes.about} component={About} />
+          <Route path={routes.recipes} component={Recipes} />
+          <Route path={routes.contact} component={Contact} />
           </Switch>
         </Router>
       </div>

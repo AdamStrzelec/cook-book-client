@@ -6,6 +6,10 @@ import FollowIcon from '../../atoms/FollowIcon/FollowIcon';
 import { faFacebook, faGithub } from '@fortawesome/free-brands-svg-icons';
 
 const PanelWrapper = styled.div`
+    @media (min-width: 768px){
+        margin-top: -70px;
+    }
+    
     background-color: black;
     width: 100%;
     height: 60vh;
@@ -25,7 +29,7 @@ const PanelContentWrapper = styled.div`
 `
 const LogoWrapper = styled.div`
     position: relative;
-    top: 100px;
+    top: 130px;
     width: 100%;
     height: 90px;
     @media (max-width: 576px){
@@ -47,7 +51,7 @@ const Logo = styled.img`
 `
 const InfoWrapper = styled.div`
     position: relative;
-    top: 180px;
+    top: 200px;
     color: white;
     width: 100%;
     text-align: center;

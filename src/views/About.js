@@ -1,9 +1,10 @@
 import React from 'react';
+import MainTemplate from '../templates/MainTemplate';
 
 const About = () => (
-    <div>
+    <MainTemplate>
         about view
-    </div>
+    </MainTemplate>
 )
 
 export default About;

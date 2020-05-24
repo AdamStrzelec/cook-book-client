@@ -1,10 +1,12 @@
 import React from 'react';
+import MainTemplate from '../templates/MainTemplate';
 import GreetingPanel from '../components/organisms/GreetingPanel/GreetingPanel';
 
+
 const Home = () => (
-    <div>
+    <MainTemplate>
         <GreetingPanel />
-    </div>
+    </MainTemplate>
 )
 
 export default Home;

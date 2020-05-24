@@ -1,10 +1,10 @@
 import React from 'react';
 import MainTemplate from '../templates/MainTemplate';
 
-const Recipes = () => (
+const Contact = () => (
     <MainTemplate>
-        recipes view
+        contact view
     </MainTemplate>
 )
 
-export default Recipes;
+export default Contact;
