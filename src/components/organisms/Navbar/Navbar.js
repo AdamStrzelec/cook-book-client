@@ -6,7 +6,6 @@ import routes from '../../../routes';
 import { faHome, faInfo, faBookOpen, faPhone } from '@fortawesome/free-solid-svg-icons';
 import NavbarItem from '../../atoms/NavbarItem/NavbarItem';
 import Button from '../../atoms/Button/Button';
-import ToggleButton from '../../atoms/ToggleButton/ToggleButton';
 import ToggleButon from '../../atoms/ToggleButton/ToggleButton';
 
 const NavbarWrapper = styled.div`    
