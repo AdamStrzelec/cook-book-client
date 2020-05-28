@@ -1,0 +1,44 @@
+.wrapper{
+    width: 100%;
+    position: relative;
+    border-radius: 5px;
+}
+input{
+    width: calc(100% - 14px);
+    height: 30px;
+    padding-left: 10px;
+    border: 1px solid #d4d4d4;
+    border-bottom: 3px solid #b2b2b2;
+    border-radius: 5px;
+    font-size: 15px;
+    outline: none;
+    font-family: sans-serif;
+    display: block;
+    position: relative;
+}
+input:after{
+    content: '';
+    position: absolute;
+    bottom: 10px;
+    left: 0;
+    width: 100px;
+    height: 20px;
+    background-color: black;
+    
+}
+label{
+    color: #454140;
+    position: absolute;
+    top: 5px;
+    left: 10px;
+    pointer-events: none;
+    font-size: 14px;
+    transition: transform 0.3s ease-in-out;
+}
+
+input:focus + label{
+    transform: translateY(-24px) translateX(-20px) scale(0.8);
+}
+.isLabelFocused{
+    transform: translateY(-24px) translateX(-20px) scale(0.8);
+}
