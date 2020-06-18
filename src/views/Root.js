@@ -4,6 +4,7 @@ import { createGlobalStyle } from 'styled-components';
 import Home from './Home';
 import About from './About';
 import Recipes from './Recipes';
+import Recipe from './Recipe';
 import Contact from './Contact';
 import routes from '../routes';
 
@@ -37,10 +38,11 @@ class Root extends Component {
         <GlobalStyle/>
         <Router>
           <Switch>
-          <Route exact path={routes.home} component={Home} />
-          <Route path={routes.about} component={About} />
-          <Route path={routes.recipes} component={Recipes} />
-          <Route path={routes.contact} component={Contact} />
+            <Route exact path={routes.home} component={Home} />
+            <Route path={routes.about} component={About} />
+            <Route path={routes.recipes} component={Recipes} />
+            <Route path={routes.recipe} component={Recipe} />
+            <Route path={routes.contact} component={Contact} />
           </Switch>
         </Router>
       </div>
