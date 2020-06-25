@@ -1,12 +1,16 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router,  Switch,  Route } from "react-router-dom";
 import { createGlobalStyle } from 'styled-components';
+import { Provider } from 'react-redux';
 import Home from './Home';
 import About from './About';
 import Recipes from './Recipes';
 import Recipe from './Recipe';
 import Contact from './Contact';
 import routes from '../routes';
+import store from '../store'
+import rootReducer from '../reducers';
+import { createStore } from 'redux';
 
 const GlobalStyle = createGlobalStyle`
   @import url('https://fonts.googleapis.com/css?family=Montserrat:300,600');
@@ -29,12 +33,13 @@ const GlobalStyle = createGlobalStyle`
   }
 `
 
+window.store = store;
 class Root extends Component {
 
   render(){
-
+    // store.subscribe(() => console.log(store.getState()))
     return(
-      <div className="App">
+      <Provider store={store}>
         <GlobalStyle/>
         <Router>
           <Switch>
@@ -45,7 +50,7 @@ class Root extends Component {
             <Route path={routes.contact} component={Contact} />
           </Switch>
         </Router>
-      </div>
+      </Provider>
     )
   }
 }
