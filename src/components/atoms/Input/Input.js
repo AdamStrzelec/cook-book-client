@@ -37,7 +37,7 @@ class Input extends React.Component {
         const inputValue = this.state.inputValue;
         return(
             <div className='wrapper'>
-                <input className='input' onChange={(e)=>{this.setValue(e)}} type={type} name={placeholder}/>
+                <input autoComplete="new-password" className='input' onChange={(e)=>{this.setValue(e)}} type={type} name={placeholder}/>
                 <label className={inputValue.length>0 ? 'isLabelFocused' : ''} htmlFor={placeholder}>{placeholder}</label>
             </div>
         )

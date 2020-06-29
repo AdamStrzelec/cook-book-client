@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import Navbar from '../components/organisms/Navbar/Navbar';
+import SignInPanel from '../components/organisms/SignInPanel/SignInPanel';
 
 const StyledWrapper = styled.div`
 
@@ -13,6 +14,7 @@ const MainTemplate = ({children}) => (
     <StyledWrapper>
         <Navbar />
         {children}
+        <SignInPanel />
     </StyledWrapper>
 )
 

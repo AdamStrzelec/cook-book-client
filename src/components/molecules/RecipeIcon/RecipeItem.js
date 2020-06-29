@@ -8,7 +8,6 @@ const Wrapper = styled.div`
     width: 90%;
     min-width: 250px;
     height: 130px;
-    background-color: red;
     margin: 10px auto;
     border-radius: 11px;
     overflow: hidden;
@@ -96,17 +95,9 @@ const RecipeTypeSpan = styled.span`
 
 class RecipeItem extends React.Component {
 
-    state = {
-        redirect: false,
-    }
-
     render(){
         const { id, image, name, description, grade, type } = this.props;
-        
-        console.log(this.state.redirect);
-        if(this.state.redirect){
-            // return <Redirect to={'/recipe/'+id} />
-        }
+
         return(
             
             <Wrapper onClick={() => this.setState({redirect: true})}>

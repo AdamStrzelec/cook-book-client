@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled, { css } from 'styled-components';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { withRouter } from "react-router";
 import routes from '../../../routes';
@@ -7,6 +8,7 @@ import { faHome, faInfo, faBookOpen, faPhone } from '@fortawesome/free-solid-svg
 import NavbarItem from '../../atoms/NavbarItem/NavbarItem';
 import Button from '../../atoms/Button/Button';
 import ToggleButon from '../../atoms/ToggleButton/ToggleButton';
+import { openSignInPanel as openSignInPanelAction } from '../../../actions';
 
 const NavbarWrapper = styled.div`    
     z-index: 1000;
@@ -74,7 +76,7 @@ const ToggleButonWrapper = styled.div`
 `
 
 
-const Navbar = () => {
+const Navbar = ({openSignInPanel}) => {
     
     const [isMenuOpen, menuToggler] = useState(false);
     const menuToggle = (isOpen) => {
@@ -113,8 +115,8 @@ const Navbar = () => {
             </ListWrapper>
 
             <UserMenu>
-                <Button type={'login'} onClick={()=>menuToggler(false)}>Logowanie</Button>
-                <Button type={'register'} onClick={()=>menuToggler(false)}>Rejestracja</Button>
+                <Button type={'login'} onClick={()=>{menuToggler(false); openSignInPanel('signin')}}>Logowanie</Button>
+                <Button type={'register'} onClick={()=>{menuToggler(false); openSignInPanel('signup')}}>Rejestracja</Button>
             </UserMenu>
 
 
@@ -124,4 +126,8 @@ const Navbar = () => {
     )
 }
 
-export default withRouter(Navbar);
+const mapDispatchToProps = dispatch => ({
+    openSignInPanel: (panelType) => dispatch(openSignInPanelAction(panelType)),
+})
+
+export default connect(null, mapDispatchToProps)(withRouter(Navbar));
