@@ -1,27 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
 import './input.css';
-
-const InputWrapper = styled.div`
-    width: 100%;
-    position: relative;
-`
-const StyledLabel = styled.div`
-    position: absolute;
-    top: -10px;
-    left: 5px;
-    font-size: 15px;
-    font-family: sans-serif;
-    color: #454140;
-`
-
-const StyledInput = styled.input`
-    width: 100%;
-    &:focus ${StyledLabel}{
-        transform: translateY(10px);
-        color: red;
-    }
-`
 
 class Input extends React.Component {
     state = {

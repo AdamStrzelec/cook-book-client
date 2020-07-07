@@ -6,6 +6,7 @@ import { withRouter } from "react-router";
 import routes from '../../../routes';
 import { faHome, faInfo, faBookOpen, faPhone } from '@fortawesome/free-solid-svg-icons';
 import NavbarItem from '../../atoms/NavbarItem/NavbarItem';
+import UserPanel from '../../molecules/UserPanel/UserPanel';
 import Button from '../../atoms/Button/Button';
 import ToggleButon from '../../atoms/ToggleButton/ToggleButton';
 import { openSignInPanel as openSignInPanelAction } from '../../../actions';
@@ -54,6 +55,16 @@ const StyledListItem = styled.li`
     margin: 0px 17px;
     text-align: center;
 `
+const UserPanelWrapper = styled.div`
+
+    @media (min-width: 768px){
+        position: absolute;
+        width: 250px;
+        height: 100%;
+        right: 0;
+        top: 0;
+    }
+`
 const UserMenu = styled.div`
     width: 100%;
     display: flex;
@@ -75,10 +86,13 @@ const ToggleButonWrapper = styled.div`
     left: 255px;
 `
 
+// class Navbar extends React.Component{
 
-const Navbar = ({openSignInPanel}) => {
+// }
+const Navbar = ({openSignInPanel, userID}) => {
     
     const [isMenuOpen, menuToggler] = useState(false);
+    
     const menuToggle = (isOpen) => {
         menuToggler(isOpen);
     }
@@ -114,20 +128,30 @@ const Navbar = ({openSignInPanel}) => {
                 </StyledListItem>
             </ListWrapper>
 
+            {userID==='' ? 
             <UserMenu>
                 <Button type={'login'} onClick={()=>{menuToggler(false); openSignInPanel('signin')}}>Logowanie</Button>
                 <Button type={'register'} onClick={()=>{menuToggler(false); openSignInPanel('signup')}}>Rejestracja</Button>
-            </UserMenu>
+            </UserMenu> 
+            : 
+            <UserPanelWrapper>
+                <UserPanel />  
+            </UserPanelWrapper>}
+            {/* <UserMenu>
+                <Button type={'login'} onClick={()=>{menuToggler(false); openSignInPanel('signin')}}>Logowanie</Button>
+                <Button type={'register'} onClick={()=>{menuToggler(false); openSignInPanel('signup')}}>Rejestracja</Button>
+            </UserMenu> */}
 
 
-            
-
+                    
         </NavbarWrapper>
     )
 }
-
+const mapStateToProps = (state) => ({
+    userID: state.userID,
+})
 const mapDispatchToProps = dispatch => ({
     openSignInPanel: (panelType) => dispatch(openSignInPanelAction(panelType)),
 })
 
-export default connect(null, mapDispatchToProps)(withRouter(Navbar));
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Navbar));

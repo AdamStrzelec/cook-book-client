@@ -6,11 +6,11 @@ import Home from './Home';
 import About from './About';
 import Recipes from './Recipes';
 import Recipe from './Recipe';
+import AddRecipe from './AddRecipe';
 import Contact from './Contact';
+import MyAccount from './MyAccount';
 import routes from '../routes';
 import store from '../store'
-import rootReducer from '../reducers';
-import { createStore } from 'redux';
 
 const GlobalStyle = createGlobalStyle`
   @import url('https://fonts.googleapis.com/css?family=Montserrat:300,600');
@@ -37,7 +37,6 @@ window.store = store;
 class Root extends Component {
 
   render(){
-    // store.subscribe(() => console.log(store.getState()))
     return(
       <Provider store={store}>
         <GlobalStyle/>
@@ -47,7 +46,9 @@ class Root extends Component {
             <Route path={routes.about} component={About} />
             <Route path={routes.recipes} component={Recipes} />
             <Route path={routes.recipe} component={Recipe} />
+            <Route path={routes.addRecipe} component={AddRecipe} />
             <Route path={routes.contact} component={Contact} />
+            <Route path={routes.myAccount} component={MyAccount} />
           </Switch>
         </Router>
       </Provider>

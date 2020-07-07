@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -49,9 +49,6 @@ const RedirectParagraph = styled(Paragraph)`
     color: rgb(0, 128, 192);
 `
 class SignInPanel extends React.Component{
-    // state = {
-    //     isSignInPanelOpen: this.props.isSignInPanelOpen,
-    // }
 
     render(){
         const { isSignInPanelOpen, panelType, redirectToRegister } = this.props;
