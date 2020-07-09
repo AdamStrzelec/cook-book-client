@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
+import withDetectClickOutsideComponent from '../../../hoc/withDetectClickOutsideComponent';
 import { Redirect } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCaretDown, faUser, faBookOpen, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
@@ -57,16 +58,25 @@ class UserPanel extends React.Component {
 
     state = {
         isUserMenuOpen: false,
+        isFocused: false,
         redirect: false,
         redirectRoute: '',
+    }
+    componentDidMount(){
+        this.setState({isFocused: this.props.isFocused});
+    }
+
+    componentDidUpdate(prevState){
+        if(this.props.isFocused !== prevState.isFocused){
+            this.setState({isFocused: this.props.isFocused})
+            if(!this.props.isFocused){
+                this.setState({isUserMenuOpen: false});
+            }
+        }
     }
 
     panelToggler(){
         this.setState({isUserMenuOpen: !this.state.isUserMenuOpen})
-    }
-
-    handleIconClick(){
-        console.log('handle icon click')
     }
 
     redirectTo(route){
@@ -85,7 +95,7 @@ class UserPanel extends React.Component {
     render(){
         const { isUserMenuOpen } = this.state;
         return(
-            <Wrapper onClick={() => this.panelToggler()}>
+            <Wrapper onClick={() => {this.panelToggler()}}>
                 {this.renderRedirect()}
                 <UserPanelItem index={isUserMenuOpen ? 1 : 0} icon={faUser} content={'Moje konto'} handleItemClick={() => this.redirectTo('/account')}/>
                 <UserPanelItem index={isUserMenuOpen ? 2 : 0} icon={faBookOpen} content={'Dodaj przepis'} handleItemClick={() => this.redirectTo('/add/recipe')}/>
@@ -106,4 +116,4 @@ const mapDispatchToProps = dispatch => ({
 
 
 
-export default connect(null, mapDispatchToProps)(UserPanel);
+export default connect(null, mapDispatchToProps)(withDetectClickOutsideComponent(UserPanel));
