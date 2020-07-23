@@ -8,7 +8,6 @@ const Button = styled.button`
     font-size: 1.4rem;
 
     ${props => props.primary && css`
-        /* background-color: rgb(0, 164, 164); */
         background-color: rgb(98, 98, 98);
         border: none;
         color: white;
@@ -26,6 +25,27 @@ const Button = styled.button`
             width: 100%;
             height: 6px;
             background-color: rgb(68, 68, 68);
+        }
+    `}
+
+    ${props => props.secondary && css`
+        background-color: rgb(0, 181, 0);
+        border: none;
+        color: white;
+        font-family: 'Roboto' sans-serif;
+        letter-spacing: 1px;
+        border-radius: 3px;
+        position: relative;
+        overflow: hidden;
+        
+        &::after{
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 6px;
+            background-color: rgb(0, 155, 0);
         }
     `}
 
