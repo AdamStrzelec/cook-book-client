@@ -1,7 +1,8 @@
 const initialState = {
     isSignInPanelOpen: false,
     signInPanelType: '',
-    userID: '123',
+    userName: '',
+    userID: '',
 }
 
 const rootReducer = (state = initialState, action) => {
@@ -12,8 +13,14 @@ const rootReducer = (state = initialState, action) => {
             return {...state, isSignInPanelOpen: action.payload.isSignInPanelOpen}
         case 'REDIRECT_TO_REGISTER':
             return {...state, signInPanelType: action.payload.panelType}
+        case 'SIGN_IN':
+            return {...state, userID: action.payload.userID, isSignInPanelOpen: action.payload.isSignInPanelOpen, userName: action.payload.userName}
+        case 'SIGN_UP':
+            return {...state, userID: action.payload.userID, isSignInPanelOpen: action.payload.isSignInPanelOpen, userName: action.payload.userName}
         case 'LOGOUT':
-            return {...state, userID: action.payload.userID}
+            return {...state, userID: action.payload.userID, userName: ''}
+        case 'AUTHENTICATE':
+            return {...state, userID: action.payload.userID, userName: action.payload.userName}
         default: 
             return state;
     }

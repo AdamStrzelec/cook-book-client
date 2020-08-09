@@ -101,7 +101,7 @@ class UserPanel extends React.Component {
                 <UserPanelItem index={isUserMenuOpen ? 2 : 0} icon={faBookOpen} content={'Dodaj przepis'} handleItemClick={() => this.redirectTo('/add/recipe')}/>
                 <UserPanelItem index={isUserMenuOpen ? 3 : 0} icon={faSignOutAlt} content={'Wyloguj się'} handleItemClick={this.props.logout}/>
                 <UserNameWrapper>
-                    <UserName subheader>adam</UserName>
+                    <UserName subheader>{this.props.userName}</UserName>
                     <UserMenuOpenPointer icon={faCaretDown} ismenuopen={isUserMenuOpen ? 1 : 0}/>
                 </UserNameWrapper>
                 
@@ -110,10 +110,13 @@ class UserPanel extends React.Component {
     }
 }
 
+const mapStateToProps = state => ({
+    userName: state.userName
+})
 const mapDispatchToProps = dispatch => ({
     logout: () => dispatch(logoutAction())
 })
 
 
 
-export default connect(null, mapDispatchToProps)(withDetectClickOutsideComponent(UserPanel));
+export default connect(mapStateToProps, mapDispatchToProps)(withDetectClickOutsideComponent(UserPanel));
