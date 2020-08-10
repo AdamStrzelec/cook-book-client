@@ -34,7 +34,7 @@ const DeleteIngredient = styled.div`
 const Ingredient = ({ingredient, deleteIngredient}) => (
     <Wrapper>
         <ContentWrapper>
-            {ingredient.name} - {ingredient.portion} {ingredient.type}
+            {ingredient.ingredient} - {ingredient.sizeUnit} {ingredient.sizeValue}
         </ContentWrapper>
         <DeleteIngredient onClick={deleteIngredient} >X</DeleteIngredient>
     </Wrapper>

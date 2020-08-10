@@ -75,9 +75,9 @@ const AddingIngredientPanel = ({addIngredient}) => {
                 setPortion('');
                 addIngredient(
                     {
-                        name: name,
-                        portion: portion,
-                        type: type
+                        ingredient: name,
+                        sizeValue: portion,
+                        sizeUnit: type
                     }
                 )}}}>
                 +

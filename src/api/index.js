@@ -14,3 +14,11 @@ export const signUpUser = (email, userName, password) => {
         password: password
     })
 }
+
+export const addRecie = (formData) => {
+    return axios.post(url+'/recipe', formData, {
+        headers: {
+            Authorization: 'Bearer ' + localStorage.getItem("token")
+        }
+    })
+}
