@@ -22,3 +22,12 @@ export const addRecie = (formData) => {
         }
     })
 }
+
+export const getRecipes = (pageNumber) => {
+    return axios.get(url+'/recipe/page/'+pageNumber, {
+        params: {
+            name: '',
+            value: ''
+        }
+    })
+}

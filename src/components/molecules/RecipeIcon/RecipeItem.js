@@ -15,7 +15,7 @@ const Wrapper = styled.div`
     
     @media (min-width: 576px){
         height: 130px;
-        width: 75%;
+        width: 85%;
     }
 `
 const LinkWrapper = styled(Link)`
