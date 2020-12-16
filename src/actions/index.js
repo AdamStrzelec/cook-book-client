@@ -46,7 +46,6 @@ export const signUp = (dispatch, email, userName, password) => {
             errorMessage = 'nie udalo sie utworzyc konta';
         }
         console.log(errorMessage)
-        //to do create modal with error message
         return null;
     })
 }
@@ -115,4 +114,14 @@ export const authenticateUser = (dispatch) => {
         localStorage.setItem("token", '')
         localStorage.setItem("userID", '')
     })
+}
+
+export const setSearchbarIpnutString = (searchbarInputString) => {
+    console.log(searchbarInputString)
+    return {
+        type: 'SET_SEARCHBAR_INPUT_STRING',
+        payload: {
+            searchbarInputString: searchbarInputString
+        }
+    }
 }

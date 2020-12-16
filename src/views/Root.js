@@ -44,8 +44,8 @@ class Root extends Component {
           <Switch>
             <Route exact path={routes.home} component={Home} />
             <Route path={routes.about} component={About} />
-            <Route exact path={routes.recipes} component={Recipes} />
-            <Route path={routes.recipesPage} component={Recipes} />
+            <Route path={routes.recipes} component={Recipes} />
+            {/* <Route path={routes.recipesPage} component={Recipes} /> */}
             <Route path={routes.recipe} component={Recipe} />
             <Route path={routes.addRecipe} component={AddRecipe} />
             <Route path={routes.contact} component={Contact} />

@@ -3,6 +3,8 @@ const initialState = {
     signInPanelType: '',
     userName: '',
     userID: '',
+    searchbarInputString: '',
+    recipesOptions: [],
 }
 
 const rootReducer = (state = initialState, action) => {
@@ -21,6 +23,8 @@ const rootReducer = (state = initialState, action) => {
             return {...state, userID: action.payload.userID, userName: ''}
         case 'AUTHENTICATE':
             return {...state, userID: action.payload.userID, userName: action.payload.userName}
+        case 'SET_SEARCHBAR_INPUT_STRING':
+            return {...state, searchbarInputString: action.payload.searchbarInputString}
         default: 
             return state;
     }
