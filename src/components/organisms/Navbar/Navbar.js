@@ -86,9 +86,6 @@ const ToggleButonWrapper = styled.div`
     left: 255px;
 `
 
-// class Navbar extends React.Component{
-
-// }
 const Navbar = ({openSignInPanel, userID}) => {
     
     const [isMenuOpen, menuToggler] = useState(false);
@@ -136,14 +133,7 @@ const Navbar = ({openSignInPanel, userID}) => {
             : 
             <UserPanelWrapper>
                 <UserPanel />  
-            </UserPanelWrapper>}
-            {/* <UserMenu>
-                <Button type={'login'} onClick={()=>{menuToggler(false); openSignInPanel('signin')}}>Logowanie</Button>
-                <Button type={'register'} onClick={()=>{menuToggler(false); openSignInPanel('signup')}}>Rejestracja</Button>
-            </UserMenu> */}
-
-
-                    
+            </UserPanelWrapper>}                   
         </NavbarWrapper>
     )
 }

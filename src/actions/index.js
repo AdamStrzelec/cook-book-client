@@ -117,11 +117,20 @@ export const authenticateUser = (dispatch) => {
 }
 
 export const setSearchbarIpnutString = (searchbarInputString) => {
-    console.log(searchbarInputString)
+    // console.log(searchbarInputString)
     return {
         type: 'SET_SEARCHBAR_INPUT_STRING',
         payload: {
             searchbarInputString: searchbarInputString
+        }
+    }
+}
+
+export const setRecipesOptions = (recipesOptions) => {
+    return {
+        type: 'SET_RECIPES_OPTIONS',
+        payload: {
+            recipesOptions: recipesOptions
         }
     }
 }

@@ -1,14 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Router, Switch, Route, Link, Redirect } from 'react-router-dom';
-import createBrowserHistory from 'history/createBrowserHistory';
+import { Switch, Route, Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { setRecipesOptions as setRecipesOptionsAction } from '../actions';
 import MainTemplate from '../templates/MainTemplate';
 import RecipesItems from '../components/molecules/RecipesItems/RecipesItems';
 import Searchbar from '../components/organisms/Searchbar/Searchbar';
 import RecipesOptions from '../components/organisms/RecipesOptions/RecipesOptions';
 import createQueryString from '../utils/CreateQueryString';
 import getSearchOptions from '../utils/GetSearchOptions';
-import getSearchInputString from '../utils/GetSearchInputString';
 
 const Wrapper = styled.div`
 
@@ -16,7 +16,6 @@ const Wrapper = styled.div`
 const OptionsWrapper = styled.div`
     width: 250px;
     height: calc(100vh - 70px);
-    /* background-color: gray; */
     position: fixed;
     @media(max-width: 768px){
         display: none;
@@ -48,28 +47,24 @@ class Recipes extends React.Component{
         recipes: [],
         recipesOptions: [],
         searchInput: '',
+        recipesOptionsByQuery: []
     }
 
     componentDidMount(){
-
+        this.setState({recipesOptionsByQuery: getSearchOptions(this.props.location.search.replaceAll('%20', ' '))});
     }
     componentDidUpdate(prevProps, prevState){
-        if(prevState.recipesOptions!==this.state.recipesOptions){
-            this.setState({redirect: true});
-        }
         if(prevState.searchInput!==this.state.searchInput){
             this.setState({redirect: true});
         }
-        if(this.props.location.search!==prevProps.location.search){
-            this.setState({
-                recipesOptions: getSearchOptions(this.props.location.search.replaceAll('%20', ' ')),
-                searchInput: getSearchInputString(this.props.location.search)
-            })
+        if(prevProps.recipesOptions!==this.props.recipesOptions){
+            this.setState({redirect: true});
         }
     }
-
-    setRecipesOptions(options){
-        this.setState({recipesOptions: options})
+    getRecipesOptionsByQuery(prevProps, props){
+        if(prevProps.location.search!==props.location.search){
+            this.setState({recipesOptionsByQuery: getSearchOptions(props.location.search.replaceAll('%20', ' '))});
+        }
     }
 
     setSearchInput(searchString){
@@ -78,7 +73,7 @@ class Recipes extends React.Component{
 
     handleRedirect(){
         this.setState({redirect: false})
-        const recipesOptions = [...this.state.recipesOptions].toString().replaceAll(',',' ')
+        const recipesOptions = [...this.props.recipesOptions].toString().replaceAll(',',' ')
         return <Redirect to={{
             pathname: '/recipes/page/1',
             search: createQueryString(recipesOptions, this.state.searchInput)
@@ -92,23 +87,24 @@ class Recipes extends React.Component{
                 <Wrapper>
                     <OptionsWrapper>
                         <RecipesOptions 
-                            getRecipesOptions={(options) => this.setRecipesOptions(options)}
-                            recipesOptions={getSearchOptions(this.props.location.search.replaceAll('%20', ' '))}
+                            recipesOptionsByQuery={getSearchOptions(this.props.location.search.replaceAll('%20', ' '))}
+                            search={this.props.location.search}
                         />
                     </OptionsWrapper>
                     <ItemsWrapper>
                         <SearchbarWrapper>
                             <Searchbar 
                                 setSearchInput={(searchInput) => this.setSearchInput(searchInput)}
-                                searchInputString={getSearchInputString(this.props.location.search)}
                             />
                         </SearchbarWrapper>
                         <div>
                             {this.state.redirect && 
                                 this.handleRedirect()
                             }
-                            <Route exact path='/recipes' component={RecipesItems} />
-                            <Route path='/recipes/page/:nr' component={RecipesItems} />
+                            <Switch>
+                                <Route exact path='/recipes' component={RecipesItems} />
+                                <Route exact path='/recipes/page/:nr' component={RecipesItems} />
+                            </Switch>
                         </div>                        
                     </ItemsWrapper>
                 </Wrapper>
@@ -118,4 +114,13 @@ class Recipes extends React.Component{
 
 }
 
-export default Recipes;
+const mapStateToProps = state => ({
+    recipesOptions: state.recipesOptions
+
+})
+
+const mapDispatchToProps = (dispatch) => ({
+    setRecipesOptions: (recipesOptions) => dispatch(setRecipesOptionsAction(recipesOptions))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Recipes);

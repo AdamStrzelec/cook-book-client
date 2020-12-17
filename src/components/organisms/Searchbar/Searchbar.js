@@ -23,7 +23,7 @@ const StyledInput = styled.input`
     outline: none;
     background-color: #e0e2e4;
 `
-const SearchButton = styled.button`
+const SearchButton = styled.div`
     position: absolute;
     right: 0;
     top: 0;
@@ -56,7 +56,6 @@ let intervalId;
 class Searchbar extends React.Component {
 
     state = {
-        // recipes: [],
         searchInputValue: '',
         isSearchResultVisible: false
     }
@@ -84,8 +83,6 @@ class Searchbar extends React.Component {
                 this.setState({isSearchResultVisible: false});
             }
         }
-        
-
     }
 
     render(){

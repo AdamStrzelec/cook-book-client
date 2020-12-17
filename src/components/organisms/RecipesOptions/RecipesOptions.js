@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { Formik, Field, Form } from 'formik';
 import Header from '../../atoms/Header/Header';
 import { Checkbox, Label } from '../../atoms/RecipeOptionType/RecipeOptionType';
+import { setRecipesOptions as setRecipesOptionsAction } from '../../../actions';
 
 const Wrapper = styled.div`
     width: 100%;
@@ -30,36 +31,44 @@ class RecipesOptions extends React.Component {
     state = {
         isAllOptionsChecked: true,
         checked: [],
+        isSearchOptionsQuery: false,
+        forceSubmit: false
     }
-    componentDidMount(){
-        console.log(this.props.location);
-        console.log(this.props.recipesOptions);
-    }
-    componentDidUpdate(prevProps, prevState){
-        if(prevState.checked!==this.state.checked){
-            this.props.getRecipesOptions(this.state.checked);
+
+    componentDidUpdate(prevProps){
+        if(prevProps.search!==this.props.search && this.props.search.length===0){
+            this.setState({forceSubmit: true});
         }
     }
+    
+    setForceSubmit(){
+        this.props.setRecipesOptions([])
+        this.setState({forceSubmit: false})
+    }
     render(){
-
+        const { setRecipesOptions, recipesOptionsByQuery } = this.props;
         
         return(
             <Wrapper>
                 <Formik
                     initialValues={{
-                        all: this.props.recipesOptions.length > 0 ? false : true,
-                        checked: this.props.recipesOptions
+                        all: recipesOptionsByQuery.length > 0 ? false : true,
+                        checked: recipesOptionsByQuery
                     }}
                     onSubmit={async values => {
                         if(values.all){
                             values.checked = [];
                         }
                         if(values.checked.length===0)values.all=true
-                        this.setState({checked: values.checked, isAllOptionsChecked: values.all});
+                            setRecipesOptions(values.checked);
+                            this.setState({checked: values.checked, forceSubmit: false});
                     }}
                 >
                     {({ values, submitForm }) => (
                     <StyledForm onChange={()=> submitForm()}>
+                        {this.state.forceSubmit ? values.checked = [] : null}
+                        {this.state.forceSubmit ? values.all = true : null}
+                        {this.state.forceSubmit ? this.setForceSubmit() : null}
                         <OptinsHeader>Wybierz typ potrawy</OptinsHeader>
                         <div role="group" aria-labelledby="checkbox-group">
                             <Option>
@@ -91,4 +100,12 @@ class RecipesOptions extends React.Component {
     }
 }
 
-export default RecipesOptions;
+const mapStateToProps = state => ({
+    recipesOptions: state.recipesOptions
+})
+
+const mapDispatchToProps = dispatch => ({
+    setRecipesOptions: (recipesOptions) => dispatch(setRecipesOptionsAction(recipesOptions))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(RecipesOptions);

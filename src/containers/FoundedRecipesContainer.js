@@ -10,10 +10,8 @@ class FoundedRecipesContainer extends React.Component {
     }
 
     fetchData(inputValue, types){
-        console.log(inputValue)
         findRecipes(inputValue, types)
         .then(response => {
-                console.log(response.data.recipes);
                 this.setState({ recipes: response.data.recipes, isLoading: false})
         })
         .catch(err => console.log(err))
