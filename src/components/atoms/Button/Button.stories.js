@@ -7,3 +7,9 @@ storiesOf('Button', module)
     .add('primary', ()=>
         <Button primary>button</Button>     
     )
+    .add('secondary', ()=>
+        <Button secondary>button</Button>     
+    )
+    .add('tertiary', ()=>
+        <Button tertiary>button</Button>     
+    )

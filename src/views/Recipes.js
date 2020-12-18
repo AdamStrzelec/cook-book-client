@@ -7,6 +7,8 @@ import MainTemplate from '../templates/MainTemplate';
 import RecipesItems from '../components/molecules/RecipesItems/RecipesItems';
 import Searchbar from '../components/organisms/Searchbar/Searchbar';
 import RecipesOptions from '../components/organisms/RecipesOptions/RecipesOptions';
+import { Link } from 'react-router-dom';
+import Pagination from '../components/organisms/Pagination/Pagination';
 import createQueryString from '../utils/CreateQueryString';
 import getSearchOptions from '../utils/GetSearchOptions';
 
@@ -47,7 +49,7 @@ class Recipes extends React.Component{
         recipes: [],
         recipesOptions: [],
         searchInput: '',
-        recipesOptionsByQuery: []
+        recipesOptionsByQuery: [],
     }
 
     componentDidMount(){
@@ -80,7 +82,6 @@ class Recipes extends React.Component{
         }} />
     }
 
-
     render(){
         return(
             <MainTemplate>
@@ -105,8 +106,8 @@ class Recipes extends React.Component{
                                 <Route exact path='/recipes' component={RecipesItems} />
                                 <Route exact path='/recipes/page/:nr' component={RecipesItems} />
                             </Switch>
-                        </div>                        
-                    </ItemsWrapper>
+                        </div>                      
+                    </ItemsWrapper>                    
                 </Wrapper>
             </MainTemplate>
         )

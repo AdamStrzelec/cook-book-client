@@ -6,6 +6,7 @@ import { getRecipes } from '../../../api';
 import getSearchOptions from '../../../utils/GetSearchOptions';
 import getSearchInputString from '../../../utils/GetSearchInputString';
 import Loader from 'react-loader-spinner';
+import Pagination from '../../organisms/Pagination/Pagination';
 import { 
     setSearchbarIpnutString as setSearchbarIpnutStringAction,
     setRecipesOptions as setRecipesOptionsAction
@@ -24,7 +25,10 @@ class RecipesItems extends React.Component{
     state = {
         recipesArray: [],
         recipesOptions: [],
+        recipesTotalCount: 0,
+        currentPageNumber: 1,
         isLoading: true,
+        redirect: false,
     }
     componentDidMount(){
         this.props.setSearchbarIpnutString(getSearchInputString(this.props.location.search));
@@ -35,11 +39,19 @@ class RecipesItems extends React.Component{
             this.setState({isLoading: true})
             this.fetchRecipes()
         }
+        if(prevProps.location.pathname!==this.props.location.pathname){
+            this.setState({isLoading: true})
+            this.fetchRecipes()
+        }
     }
     fetchRecipes(){
         getRecipes(this.props.match.params.nr, getSearchOptions(this.props.location.search.replaceAll('%20', ' ')), getSearchInputString(this.props.location.search))
         .then(response => {
-                this.setState({recipesArray: response.data.recipes, isLoading: false});
+                this.setState({
+                    recipesArray: response.data.recipes, 
+                    isLoading: false,
+                    recipesTotalCount: response.data.totalCount
+                });
             }
         )
     }
@@ -66,16 +78,13 @@ class RecipesItems extends React.Component{
                     grade={recipe.averageRate}
                     type={recipe.type}
                 />)
-                }     
+                }   
+                <Pagination itemsCount={this.state.recipesTotalCount} pageNumber={this.props.match.params.nr} perPage={10} search={this.props.location.search}/> 
             </div>
         )
     }
 }
 
-// const mapStateToProps = state => ({
-//     userName: state.userName,
-//     // recipesOptions: state.recipesOptions
-// })
 const mapDispatchToProps = (dispatch) => ({
     setSearchbarIpnutString: (inputString) => dispatch(setSearchbarIpnutStringAction(inputString)),
     setRecipesOptions: (recipesOptions) => dispatch(setRecipesOptionsAction(recipesOptions))

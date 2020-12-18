@@ -48,6 +48,26 @@ const Button = styled.button`
             background-color: rgb(0, 155, 0);
         }
     `}
+    ${props => props.tertiary && css`
+        background-color: rgb(178, 186, 187);
+        border: none;
+        color: rgb(66, 73, 73);
+        font-family: 'Roboto' sans-serif;
+        letter-spacing: 1px;
+        border-radius: 3px;
+        position: relative;
+        overflow: hidden;
+        
+        &::after{
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 6px;
+            background-color: rgb(153, 163, 164);
+        }
+    `}
 
     ${props => props.type === 'login' && css`
         background-color: transparent;

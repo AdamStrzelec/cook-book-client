@@ -4,6 +4,7 @@ const initialState = {
     userName: '',
     userID: '',
     searchbarInputString: '',
+    currentPageNumber: 1,
     recipesOptions: [],
 }
 
@@ -25,6 +26,8 @@ const rootReducer = (state = initialState, action) => {
             return {...state, userID: action.payload.userID, userName: action.payload.userName}
         case 'SET_SEARCHBAR_INPUT_STRING':
             return {...state, searchbarInputString: action.payload.searchbarInputString}
+        // case 'SET_PAGE_NUMBER':
+        //     return {...state, currentPageNumber: action.payload.currentPageNumber}
         case 'SET_RECIPES_OPTIONS':
             return {...state, recipesOptions: action.payload.recipesOptions}
         default: 
