@@ -71,7 +71,7 @@ class RecipesItems extends React.Component{
                 :
                 this.state.recipesArray.map((recipe, index) => <RecipeItem
                     key={index} 
-                    id={recipe.id}
+                    id={recipe._id}
                     image={recipe.imagePath}
                     name={recipe.name}
                     description={recipe.description}

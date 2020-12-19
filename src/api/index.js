@@ -40,3 +40,7 @@ export const findRecipes = (name, type) => {
         }
     })
 }
+
+export const getRecipeById = (id) => {
+    return axios.get(url+'/recipe/id/'+id)
+}
