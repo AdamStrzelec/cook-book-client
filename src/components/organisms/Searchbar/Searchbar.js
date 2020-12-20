@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearch } from '@fortawesome/free-solid-svg-icons';
+import { faSearch, faEllipsisV } from '@fortawesome/free-solid-svg-icons';
 import FoundedRecipesContainer from '../../../containers/FoundedRecipesContainer';
 import withDetectClickOutsideComponent from '../../../hoc/withDetectClickOutsideComponent';
 
@@ -22,6 +22,9 @@ const StyledInput = styled.input`
     border: none;
     outline: none;
     background-color: #e0e2e4;
+    @media(max-width: 768px){
+        font-size: 17px;
+    }
 `
 const SearchButton = styled.div`
     position: absolute;
@@ -39,10 +42,30 @@ const SearchButton = styled.div`
     align-items: center;
     justify-content: center;
 `
-const SearchIcon = styled(FontAwesomeIcon)`
+const Icon = styled(FontAwesomeIcon)`
     color: white;
     font-size: 17px;
+    display: block;
+    margin: 0 auto;
 `
+const OptionsButton = styled.div`
+    position: absolute;
+    right: 60px;
+    top: 0;
+    width: 40px;
+    height: 40px;
+    border: none;
+    outline: none;
+    background-color: #A6ACAF;
+    cursor: pointer;
+    display: none;
+    @media(max-width: 768px){
+        display: flex;
+        align-items: center;
+        justify-content: center;    
+    }
+`
+
 const SearchResult = styled.div`
     position: absolute;
     left: 0;
@@ -57,7 +80,8 @@ class Searchbar extends React.Component {
 
     state = {
         searchInputValue: '',
-        isSearchResultVisible: false
+        isSearchResultVisible: false,
+        isRecipesOptionsOpen: false
     }
 
 
@@ -97,8 +121,11 @@ class Searchbar extends React.Component {
                         this.findRecipes(e)
                         this.setState({searchInputValue: e.target.value})
                     }}/>
+                <OptionsButton onClick={()=>{this.props.setRecipesOptionsOpen()}}>
+                    <Icon icon={faEllipsisV}/>
+                </OptionsButton>
                 <SearchButton onClick={()=>{this.props.setSearchInput(this.state.searchInputValue)}}>
-                    <SearchIcon icon={faSearch}/>
+                    <Icon icon={faSearch}/>
                 </SearchButton>
                 {isSearchResultVisible && isFocused && 
                     <SearchResult>

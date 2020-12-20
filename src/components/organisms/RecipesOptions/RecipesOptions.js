@@ -10,6 +10,9 @@ const Wrapper = styled.div`
     width: 100%;
     height: 100%;
     background-color: #3b3a30;
+    @media(max-width: 768px){
+        padding-top: 50px;
+    }
 `
 const OptinsHeader = styled(Header)`
     color: white;

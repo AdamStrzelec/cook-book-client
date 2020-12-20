@@ -7,21 +7,40 @@ import MainTemplate from '../templates/MainTemplate';
 import RecipesItems from '../components/molecules/RecipesItems/RecipesItems';
 import Searchbar from '../components/organisms/Searchbar/Searchbar';
 import RecipesOptions from '../components/organisms/RecipesOptions/RecipesOptions';
-import { Link } from 'react-router-dom';
-import Pagination from '../components/organisms/Pagination/Pagination';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import createQueryString from '../utils/CreateQueryString';
 import getSearchOptions from '../utils/GetSearchOptions';
 
 const Wrapper = styled.div`
-
+    position: relative;
 `
 const OptionsWrapper = styled.div`
+    top: 70px;
+    left: 0px;
+    z-index: 101;
     width: 250px;
     height: calc(100vh - 70px);
     position: fixed;
     @media(max-width: 768px){
-        display: none;
+        top: 0;
+        height: 100vh;
+        transition: transform 0.3s ease-in-out;
+        transform: ${ props => props.isRecipesOptionsOpen ? 'translateX(0)' : 'translateX(-100%)'};
     }
+`
+const HideOptionsButton = styled.button`
+    width: 100px;
+    height: 40px;
+    position: absolute;
+    top: 350px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #909497;
+    color: #CACFD2;
+    border: none;
+    outline: none;
+    border-radius: 3px;
 `
 const SearchbarWrapper = styled.div`
     position: fixed;
@@ -30,6 +49,11 @@ const SearchbarWrapper = styled.div`
     padding: 0 40px;
     height: 40px;
     z-index: 100;
+    @media(max-width: 768px){
+        width: 100%;
+        top: 65px;
+        padding: 0 10px;
+    }
 `
 const ItemsWrapper = styled.div`
     width: 100%;
@@ -49,6 +73,7 @@ class Recipes extends React.Component{
         recipes: [],
         recipesOptions: [],
         searchInput: '',
+        isRecipesOptionsOpen: false,
         recipesOptionsByQuery: [],
     }
 
@@ -73,6 +98,10 @@ class Recipes extends React.Component{
         this.setState({searchInput: searchString})
     }
 
+    setRecipesOptionsOpen(){
+        this.setState({isRecipesOptionsOpen: !this.state.isRecipesOptionsOpen});
+    }
+
     handleRedirect(){
         this.setState({redirect: false})
         const recipesOptions = [...this.props.recipesOptions].toString().replaceAll(',',' ')
@@ -86,16 +115,20 @@ class Recipes extends React.Component{
         return(
             <MainTemplate>
                 <Wrapper>
-                    <OptionsWrapper>
+                    <OptionsWrapper isRecipesOptionsOpen={this.state.isRecipesOptionsOpen}>
                         <RecipesOptions 
                             recipesOptionsByQuery={getSearchOptions(this.props.location.search.replaceAll('%20', ' '))}
                             search={this.props.location.search}
                         />
+                        <HideOptionsButton onClick={()=>this.setState({isRecipesOptionsOpen: false})}>
+                            <FontAwesomeIcon icon={faArrowLeft} size={'2x'}/>
+                        </HideOptionsButton>
                     </OptionsWrapper>
                     <ItemsWrapper>
                         <SearchbarWrapper>
                             <Searchbar 
                                 setSearchInput={(searchInput) => this.setSearchInput(searchInput)}
+                                setRecipesOptionsOpen={() => this.setRecipesOptionsOpen()}
                             />
                         </SearchbarWrapper>
                         <div>
