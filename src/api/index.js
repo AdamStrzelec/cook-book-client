@@ -57,3 +57,6 @@ export const addRateForRecipe = (recipeId, rate) => {
         }
     })
 }
+export const getTopRecipes = (count) => {
+    return axios.get(url+'/recipe/top/'+count)
+}
