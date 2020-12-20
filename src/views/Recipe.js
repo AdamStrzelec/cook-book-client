@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import MainTemplate from '../templates/MainTemplate';
 import { getRecipeById } from '../api';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import Header from '../components/atoms/Header/Header';
 import Paragraph from '../components/atoms/Paragraph/Paragraph';
 import AddRatePanel from '../components/organisms/AddRatePanel/AddRatePanel';
@@ -13,8 +14,6 @@ import { openModal as openModalAction } from '../actions';
 
 const Wrapper = styled.div`
     width: 100%;
-    /* display: flex;
-    justify-content: center; */
     @media(max-width: 767px){
         flex-direction: column;
         justify-content: center;
@@ -135,7 +134,8 @@ class Recipe extends Component{
         type: '',
         ingredients: [],
         dataLoaded: false,
-        addedRate: 0
+        addedRate: 0,
+        error: false
     }
 
     componentDidMount(){
@@ -153,6 +153,9 @@ class Recipe extends Component{
                     dataLoaded: true
                 })
             })
+            .catch(() => {
+                this.setState({error: true});
+            })
     }
     addRate(){
         if(this.state.addedRate>0){
@@ -167,10 +170,15 @@ class Recipe extends Component{
             this.props.openModal('Musisz zaznaczyć ocenę 1-5 aby ją dodać');
         }
     }
+    handleError(){
+        return <Redirect to={this.props.location.pathname} />
+    }
     render(){
         const { recipeName, imagePath, owner, description, preparationDescription, averageRate, type, ingredients } = this.state;
         return(
             <MainTemplate>
+                {this.state.error ? 
+                <Header style ={{textAlign: 'center', marginTop: '150px'}}>Nie ma takiego przepisu</Header> : 
                 <Wrapper>
                     <AboutWrapper>  
                         <ImageWrapper>
@@ -234,7 +242,9 @@ class Recipe extends Component{
                                 <StyledParagraph>Zaloguj sie aby dodać ocenę</StyledParagraph>
                         }
                     </Info>
+                
                 </Wrapper>
+                }
             </MainTemplate>
         )
     }

@@ -9,6 +9,7 @@ import Recipe from './Recipe';
 import AddRecipe from './AddRecipe';
 import Contact from './Contact';
 import MyAccount from './MyAccount';
+import Error from './Error';
 import routes from '../routes';
 import store from '../store'
 
@@ -50,6 +51,7 @@ class Root extends Component {
             <Route path={routes.addRecipe} component={AddRecipe} />
             <Route path={routes.contact} component={Contact} />
             <Route path={routes.myAccount} component={MyAccount} />
+            <Route path={routes.error} component={Error} />
           </Switch>
         </Router>
       </Provider>

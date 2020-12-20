@@ -7,6 +7,7 @@ const routes = {
     about: '/about',
     contact: '/contact',
     myAccount: '/account',
+    error: '/*'
 }
 
 export default routes;
