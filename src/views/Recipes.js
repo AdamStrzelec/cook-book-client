@@ -41,6 +41,10 @@ const HideOptionsButton = styled.button`
     border: none;
     outline: none;
     border-radius: 3px;
+    display: none;
+    @media(max-width: 768px){
+        display: block;
+    }
 `
 const SearchbarWrapper = styled.div`
     position: fixed;
