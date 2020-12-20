@@ -60,3 +60,11 @@ export const addRateForRecipe = (recipeId, rate) => {
 export const getTopRecipes = (count) => {
     return axios.get(url+'/recipe/top/'+count)
 }
+
+export const getUserInfo = (userId) => {
+    return axios.get(url+'/user/info/'+userId, {
+        headers: {
+            Authorization: 'Bearer ' + localStorage.getItem("token")
+        }
+    });
+}

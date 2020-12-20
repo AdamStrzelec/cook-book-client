@@ -111,7 +111,8 @@ class UserPanel extends React.Component {
 }
 
 const mapStateToProps = state => ({
-    userName: state.userName
+    userName: state.userName,
+    userId: state.userID
 })
 const mapDispatchToProps = dispatch => ({
     logout: () => dispatch(logoutAction())
