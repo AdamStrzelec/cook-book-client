@@ -73,8 +73,8 @@ class Pagination extends Component{
                 {
                     buttonsArray.map(button => (
                         this.state.pageNumber==button ?
-                        <Link to={'/recipes/page/'+button+this.props.search}><StyledButton primary>{button}</StyledButton></Link> :
-                        <Link to={'/recipes/page/'+button+this.props.search}><StyledButton tertiary>{button}</StyledButton></Link>
+                        <Link key={button} to={'/recipes/page/'+button+this.props.search}><StyledButton primary>{button}</StyledButton></Link> :
+                        <Link key={button} to={'/recipes/page/'+button+this.props.search}><StyledButton tertiary>{button}</StyledButton></Link>
                     ))
                 }
             </Wrapper>

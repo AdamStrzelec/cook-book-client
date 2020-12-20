@@ -215,7 +215,7 @@ class Recipe extends Component{
 
                         <StyledHeader style={{textAlign: 'center', margin: '25px 0 10px 0'}}>Składniki:</StyledHeader>
                         {ingredients.map(ingredient => (
-                            <IngredientParagraph>
+                            <IngredientParagraph key={ingredient.ingredient}>
                                 {`${ingredient.ingredient} ${ingredient.sizeValue} ${ingredient.sizeUnit}`}
                             </IngredientParagraph>
                         ))}
