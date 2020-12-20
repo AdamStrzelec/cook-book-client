@@ -1,6 +1,7 @@
 import React from 'react';
 import MainTemplate from '../templates/MainTemplate';
 import styled from 'styled-components';
+import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import Input from '../components/atoms/Input/Input';
 import Select from '../components/atoms/Select/Select';
@@ -11,6 +12,7 @@ import Paragraph from '../components/atoms/Paragraph/Paragraph';
 import Ingredient from '../components/atoms/Ingredient/Ingredient';
 import isArrayContainProperty from '../utils/isArrayContainProperty';
 import { addRecie } from '../api';
+import { openModal as openModalAction } from '../actions';
 
 const Wrapper = styled.form`
     display: flex;
@@ -63,7 +65,7 @@ class AddRecipe extends React.Component{
         if(!isArrayContainProperty('ingredient', addedIngredient, this.state.ingredients)){
             this.setState({ingredients: [...this.state.ingredients, ...[addedIngredient]]})
         }else{
-            //to do handle existing ingredient
+            this.props.openModal('Taki składnik już istnieje');
         }
        
     }
@@ -92,6 +94,7 @@ class AddRecipe extends React.Component{
         if(this.isDataValidable()){
             addRecie(formData)
             .then(response => {
+                this.props.openModal('Pomyślnie dodano nowy przepis');
                 this.setState({
                     redirect: true,
                     addedRecipeId: response.data.recipeId
@@ -100,6 +103,8 @@ class AddRecipe extends React.Component{
             .catch(err => {
                 console.log(err.response)
             })
+        }else{
+            this.props.openModal('Wypełnij wszystkie pola');
         }
     }
 
@@ -162,4 +167,8 @@ class AddRecipe extends React.Component{
     }
 }
 
-export default AddRecipe;
+const mapDipatchToProps = dispatch => ({
+    openModal: (modalMessage) => dispatch(openModalAction(modalMessage)),
+})
+
+export default connect(null, mapDipatchToProps)(AddRecipe);

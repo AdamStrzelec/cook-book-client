@@ -8,7 +8,7 @@ import Header from '../../atoms/Header/Header';
 import Input from '../../atoms/Input/Input';
 import Button from '../../atoms/Button/Button';
 import Paragraph from '../../atoms/Paragraph/Paragraph';
-import { signIn as signInAction, signUp as signUpAction } from '../../../actions';
+import { signIn as signInAction, signUp as signUpAction, openModal as openModalAction } from '../../../actions';
 
 const Wrapper = styled.div`
     display: flex;
@@ -85,12 +85,10 @@ class SignInPanel extends React.Component{
             if(password.length>4){
                 this.props.signUp(email, name, password);
             }else{
-                console.log('pole hasło musi posiadać minimu 5 znaków');
-                //to do handle too short password
+                this.props.openModal('Pole hasło musi posiadać minimu 5 znaków');
             }
         }else{
-            console.log('pola hasło i powtórz hasło są różne');
-            // to do handle different password
+            this.props.openModal('Pola hasło i powtórz hasło są różne');
         }
     }
     render(){
@@ -131,6 +129,7 @@ const mapStateToProps = (state) => ({
     panelType: state.signInPanelType
 })
 const mapDispatchToProps = dispatch => ({
+    openModal: (modalMessage) => dispatch(openModalAction(modalMessage)),
     signIn: (name, password) => signInAction(dispatch, name, password),
     signUp: (email, name, password) => signUpAction(dispatch, email, name, password),
     closePanel: () => dispatch(closeSignInPanelAction()),

@@ -1,4 +1,6 @@
 const initialState = {
+    isModalOpen: false,
+    modalMessage: '',
     isSignInPanelOpen: false,
     signInPanelType: '',
     userName: '',
@@ -10,6 +12,10 @@ const initialState = {
 
 const rootReducer = (state = initialState, action) => {
     switch (action.type){
+        case 'OPEN_MODAL':
+            return {...state, isModalOpen: true, modalMessage: action.payload.modalMessage}
+        case 'CLOSE_MODAL':
+            return {...state, isModalOpen: false, modalMessage: ''}
         case 'OPEN_SIGN_IN_PANEL':
             return {...state, isSignInPanelOpen: action.payload.isSignInPanelOpen, signInPanelType: action.payload.panelType};
         case 'CLOSE_SIGN_IN_PANEL':
@@ -26,8 +32,6 @@ const rootReducer = (state = initialState, action) => {
             return {...state, userID: action.payload.userID, userName: action.payload.userName}
         case 'SET_SEARCHBAR_INPUT_STRING':
             return {...state, searchbarInputString: action.payload.searchbarInputString}
-        // case 'SET_PAGE_NUMBER':
-        //     return {...state, currentPageNumber: action.payload.currentPageNumber}
         case 'SET_RECIPES_OPTIONS':
             return {...state, recipesOptions: action.payload.recipesOptions}
         default: 

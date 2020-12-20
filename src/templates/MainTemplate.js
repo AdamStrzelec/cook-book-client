@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import Navbar from '../components/organisms/Navbar/Navbar';
 import SignInPanel from '../components/organisms/SignInPanel/SignInPanel';
+import Modal from '../components/organisms/Modal/Modal';
 import { connect } from 'react-redux';
 import { authenticateUser as authenticateUserAction } from '../actions';
 
@@ -22,8 +23,11 @@ class MainTemplate extends React.Component{
     
     render(){
 
+        const { isModalOpen, modalMessage } = this.props;
+
         return(
             <StyledWrapper>
+                <Modal isOpen={isModalOpen} modalMessage={modalMessage}/>
                 <Navbar />
                 {this.props.children}
                 <SignInPanel />
@@ -34,7 +38,9 @@ class MainTemplate extends React.Component{
 }
 
 const mapStateToProps = (state) => ({
-    userID: state.userID
+    userID: state.userID,
+    isModalOpen: state.isModalOpen,
+    modalMessage: state.modalMessage
 })
 
 const mapDispatchToProps = (dispatch) => ({

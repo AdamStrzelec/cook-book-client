@@ -21,8 +21,7 @@ export const signIn = (dispatch, userName, password) => {
         dispatchUserRegistration(response, dispatch, 'SIGN_IN');
     })
     .catch(() => {
-        console.log('nieprawidłowe dane logowania');
-        return null;
+        dispatch(openModal('Nieprawidłowe dane logowania'))
     })
 }
 
@@ -30,10 +29,10 @@ export const signUp = (dispatch, email, userName, password) => {
     signUpUser(email, userName, password)
     .then(() => signInUser(userName, password))
     .then(response => {
+        dispatch(openModal('Utworzono pomyślnie nowego użytkownika'))
         dispatchUserRegistration(response, dispatch, 'SIGN_UP');
     })
     .catch((err) => {
-        console.log('nie udalo sie utworzyc konta');
         let errorMessage = '';
         if(err.response.status===400){
             const errorPropertiesArray = Object.keys(err.response.data.message.errors);
@@ -43,10 +42,9 @@ export const signUp = (dispatch, email, userName, password) => {
         }else if(err.response.status===409){
             errorMessage = err.response.data.message
         }else{
-            errorMessage = 'nie udalo sie utworzyc konta';
+            errorMessage = 'Nie udalo sie utworzyc konta';
         }
-        console.log(errorMessage)
-        return null;
+        dispatch(openModal(errorMessage.charAt(0).toUpperCase()+errorMessage.slice(1)))
     })
 }
 
@@ -132,5 +130,20 @@ export const setRecipesOptions = (recipesOptions) => {
         payload: {
             recipesOptions: recipesOptions
         }
+    }
+}
+
+export const openModal = (modalMessage) => {
+    return {
+        type: 'OPEN_MODAL',
+        payload: {
+            modalMessage: modalMessage
+        }
+    }
+}
+
+export const closeModal = () => {
+    return {
+        type: 'CLOSE_MODAL',
     }
 }
