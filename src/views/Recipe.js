@@ -7,6 +7,8 @@ import Header from '../components/atoms/Header/Header';
 import Paragraph from '../components/atoms/Paragraph/Paragraph';
 import AddRatePanel from '../components/organisms/AddRatePanel/AddRatePanel';
 import Button from '../components/atoms/Button/Button';
+import { addRateForRecipe } from '../api';
+import { openModal as openModalAction } from '../actions';
 
 
 const Wrapper = styled.div`
@@ -139,7 +141,6 @@ class Recipe extends Component{
     componentDidMount(){
         getRecipeById(this.props.match.params.id)
             .then(response => {
-                console.log(response.data.recipe);
                 this.setState({
                     recipeName: response.data.recipe.name,
                     imagePath: response.data.recipe.imagePath,
@@ -153,7 +154,19 @@ class Recipe extends Component{
                 })
             })
     }
-
+    addRate(){
+        if(this.state.addedRate>0){
+            addRateForRecipe(this.props.match.params.id, this.state.addedRate)
+            .then(() => {
+                this.props.openModal('Dodano pomyślnie ocenę dla przepisu');
+            })
+            .catch(err => {
+                this.props.openModal(err.response.data.message);
+            })
+        }else{
+            this.props.openModal('Musisz zaznaczyć ocenę 1-5 aby ją dodać');
+        }
+    }
     render(){
         const { recipeName, imagePath, owner, description, preparationDescription, averageRate, type, ingredients } = this.state;
         return(
@@ -184,7 +197,7 @@ class Recipe extends Component{
                                 <>
                                     <StyledParagraph style={{marginBottom: 0}}>Dodaj ocene: </StyledParagraph>
                                     <AddRatePanel setAddedRate = {(rate)=>this.setState({addedRate: rate})}/>
-                                    <StyledButton primary style={{marginBottom: 0, marginLeft: '5px'}}>
+                                    <StyledButton primary onClick={()=>this.addRate()} style={{marginBottom: 0, marginLeft: '5px'}}>
                                         Oceń przepis
                                     </StyledButton>
                                     </>:
@@ -214,36 +227,13 @@ class Recipe extends Component{
                             <>
                                 <StyledParagraph style={{marginBottom: 0}}>Dodaj ocene: </StyledParagraph>
                                 <AddRatePanel center setAddedRate = {(rate)=>this.setState({addedRate: rate})}/>
-                                <StyledButton primary style={{marginBottom: '30px'}}>
+                                <StyledButton primary onClick={()=>this.addRate()} style={{marginBottom: '30px'}}>
                                     Oceń przepis
                                 </StyledButton>
                                 </>:
                                 <StyledParagraph>Zaloguj sie aby dodać ocenę</StyledParagraph>
                         }
                     </Info>
-                    {/* <StyledParagraph><Span>Typ potrawy: </Span>{type.charAt(0).toUpperCase()+type.slice(1)}</StyledParagraph>
-                    <StyledHeader>{recipeName.charAt(0).toUpperCase()+recipeName.slice(1)}</StyledHeader>
-                    <StyledParagraph>{description}</StyledParagraph>
-                    <StyledHeader subheader>Składniki:</StyledHeader>
-                    {ingredients.map(ingredient => (
-                        <IngredientParagraph>
-                            {`${ingredient.ingredient} ${ingredient.sizeValue} ${ingredient.sizeUnit}`}
-                        </IngredientParagraph>
-                    ))}
-                    <StyledHeader subheader>Sposób przygotowania:</StyledHeader>
-                    <StyledParagraph>{preparationDescription}</StyledParagraph>
-                    <StyledParagraph><Span>Dodany przez: </Span>{owner}</StyledParagraph>
-                    <StyledParagraph><Span>Średnia ocena: </Span>{averageRate}</StyledParagraph>
-                    {this.props.userID.length>0 ? 
-                        <>
-                        <StyledParagraph>Dodaj ocene: </StyledParagraph>
-                        <AddRatePanel setAddedRate = {(rate)=>this.setState({addedRate: rate})}/>
-                        <StyledButton primary>
-                            Oceń przepis
-                        </StyledButton>
-                        </>:
-                        <StyledParagraph>Zaloguj sie aby dodać ocenę</StyledParagraph>
-                    } */}
                 </Wrapper>
             </MainTemplate>
         )
@@ -253,5 +243,8 @@ class Recipe extends Component{
 const mapStateToProps = state => ({
     userID: state.userID
 })
+const mapDispatchToProps = dispatch => ({
+    openModal: (modalMessage) => dispatch(openModalAction(modalMessage))
+})
 
-export default connect(mapStateToProps)(Recipe);
+export default connect(mapStateToProps, mapDispatchToProps)(Recipe);

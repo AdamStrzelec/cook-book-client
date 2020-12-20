@@ -44,3 +44,16 @@ export const findRecipes = (name, type) => {
 export const getRecipeById = (id) => {
     return axios.get(url+'/recipe/id/'+id)
 }
+
+export const addRateForRecipe = (recipeId, rate) => {
+    return axios.post(url+'/rate', 
+    {
+        recipeId: recipeId,
+        rate: rate
+    }, 
+    {
+        headers: {
+            Authorization: 'Bearer ' + localStorage.getItem("token")
+        }
+    })
+}
