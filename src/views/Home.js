@@ -15,13 +15,18 @@ const StyledHeader = styled(Header)`
 class Home extends Component{
 
     state = {
-        recipes: []
+        recipes: [],
+        isLoaded: false,
     }
 
     componentDidMount(){
         getTopRecipes(5)
         .then(response => {
-            this.setState({recipes: response.data.recipes})
+            console.log(response.data)
+            this.setState({
+                recipes: response.data.recipes,
+                isLoaded: true
+            })
         })
     }
 
@@ -30,6 +35,8 @@ class Home extends Component{
         return(
             <MainTemplate>
             <GreetingPanel />
+            {this.state.isLoaded ?
+            <>
             <StyledHeader>Spróbuj naszych najlepszych przepisów</StyledHeader>
             {
                 this.state.recipes.map(recipe => 
@@ -43,6 +50,9 @@ class Home extends Component{
                         type={recipe.type}
                     />
                 )
+            }
+            </> : 
+            <></>
             }
             </MainTemplate>
         )

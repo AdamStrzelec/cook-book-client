@@ -16,9 +16,9 @@ const StyledWrapper = styled.div`
 class MainTemplate extends React.Component{
 
     componentDidMount(){
-        if(localStorage.getItem("userID").length>0){
-            this.props.authenticateUser();
-        }  
+        // if(localStorage.getItem("userID").length>0){
+        //     this.props.authenticateUser();
+        // }  
     }
     
     render(){
