@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import Grade from '../Grade/Grade';
 import Paragraph from '../Paragraph/Paragraph';
+import { recipeTypeStringReplaceCharacters } from '../../../utils/recipeTypeStringReplaceCharacters';
 
 const Wrapper = styled.div`
     background-color: #f0f0f0;
@@ -59,7 +60,7 @@ const FoundedRecipeItem = ({ id, name, type, image, averageRate }) => (
                     <Image image = {image}/>
                     <Info>
                         <Name>{name}</Name>
-                        <Type>Typ: <TypeSpan>{type}</TypeSpan></Type>
+                        <Type>Typ: <TypeSpan>{recipeTypeStringReplaceCharacters(type)}</TypeSpan></Type>
                         <GredeWrapper>
                             <Grade grade={averageRate} size={10} isGradeNumberVisible={false}/>
                         </GredeWrapper>

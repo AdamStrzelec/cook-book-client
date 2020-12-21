@@ -32,25 +32,6 @@ class MyAccount extends Component {
 
     }
 
-    componentDidMount(){
-        // const userId = this.props.userId
-        // console.log(userId)
-        // getUserInfo(this.props.match.params.userId)
-        //     .then(response => {
-        //         console.log(response.data)
-        //         this.setState({
-        //             userName: response.data.name,
-        //             userEmail: response.data.email,
-        //             recipesCount: response.data.recipesCount,
-        //             recipes: response.data.recipes,
-        //             isLoaded: true
-        //         })
-        //     })
-        //     .catch(()=>{
-        //         this.setState({redirect: true})
-        //     })
-    }
-
     handleRedirect(){
         return <Redirect to={'/'} />
     }

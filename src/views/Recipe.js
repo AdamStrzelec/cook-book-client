@@ -10,6 +10,7 @@ import AddRatePanel from '../components/organisms/AddRatePanel/AddRatePanel';
 import Button from '../components/atoms/Button/Button';
 import { addRateForRecipe } from '../api';
 import { openModal as openModalAction } from '../actions';
+import { recipeTypeStringReplaceCharacters } from '../utils/recipeTypeStringReplaceCharacters';
 
 
 const Wrapper = styled.div`
@@ -192,7 +193,7 @@ class Recipe extends Component{
                             </OwnerWrapper>
                             <TypeWrapper>
                                 <StyledParagraph>
-                                    <Span>Typ potrawy: </Span>{type.charAt(0).toUpperCase()+type.slice(1)}
+                                    <Span>Typ potrawy: </Span>{recipeTypeStringReplaceCharacters(type.charAt(0).toUpperCase()+type.slice(1))}
                                 </StyledParagraph>
                             </TypeWrapper>
                             <GradeWrapper>

@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import PropType from 'prop-types';
 import styled from 'styled-components';
 import Grade from '../../atoms/Grade/Grade';
+import { recipeTypeStringReplaceCharacters } from '../../../utils/recipeTypeStringReplaceCharacters';
 
 const Wrapper = styled.div`
     width: 90%;
@@ -117,7 +118,7 @@ class RecipeItem extends React.Component {
                             </Paragraph>
                         </StyledItemDescription>
                         <StyledItemFooter>
-                            <RecipeType><RecipeTypeSpan>Typ: </RecipeTypeSpan>{type}</RecipeType>
+                            <RecipeType><RecipeTypeSpan>Typ: </RecipeTypeSpan>{recipeTypeStringReplaceCharacters(type)}</RecipeType>
                             <Grade grade={grade} isGradeNumberVisible/>
                         </StyledItemFooter>
                     </ContentWrapper> 
