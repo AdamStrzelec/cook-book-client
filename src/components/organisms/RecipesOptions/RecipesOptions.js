@@ -5,6 +5,7 @@ import { Formik, Field, Form } from 'formik';
 import Header from '../../atoms/Header/Header';
 import { Checkbox, Label } from '../../atoms/RecipeOptionType/RecipeOptionType';
 import { setRecipesOptions as setRecipesOptionsAction } from '../../../actions';
+import { RecipesTypes } from '../../../RecipesTypes'; 
 
 const Wrapper = styled.div`
     width: 100%;
@@ -79,19 +80,19 @@ class RecipesOptions extends React.Component {
                                 <Label>Wszystkie</Label>
                             </Option>
                             <Option>
-                                <Checkbox as={Field} type="checkbox" name="checked" value="daniewytrawne" onClick={()=>{values.all=false}}/>
-                                <Label>Dania wytrawne</Label>
+                                <Checkbox as={Field} type="checkbox" name="checked" value={RecipesTypes.mainCourse} onClick={()=>{values.all=false}}/>
+                                <Label>Dania główne</Label>
                             </Option>
                             <Option>
-                                <Checkbox as={Field} type="checkbox" name="checked" value="deser" onClick={()=>{values.all=false}}/>
+                                <Checkbox as={Field} type="checkbox" name="checked" value={RecipesTypes.dessert} onClick={()=>{values.all=false}}/>
                                 <Label>Desery</Label>
                             </Option>
                             <Option>
-                                <Checkbox as={Field} type="checkbox" name="checked" value="zupa" onClick={()=>{values.all=false}}/>
+                                <Checkbox as={Field} type="checkbox" name="checked" value={RecipesTypes.soup} onClick={()=>{values.all=false}}/>
                                 <Label>Zupy</Label>
                             </Option>
                             <Option>
-                                <Checkbox as={Field} type="checkbox" name="checked" value="przystawka" onClick={()=>{values.all=false}}/>
+                                <Checkbox as={Field} type="checkbox" name="checked" value={RecipesTypes.appetizer} onClick={()=>{values.all=false}}/>
                                 <Label>Przystawki</Label>
                             </Option>
                         </div>

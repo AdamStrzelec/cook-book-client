@@ -13,6 +13,7 @@ import Ingredient from '../components/atoms/Ingredient/Ingredient';
 import isArrayContainProperty from '../utils/isArrayContainProperty';
 import { addRecie } from '../api';
 import { openModal as openModalAction } from '../actions';
+import { RecipesTypes } from '../RecipesTypes';
 
 const Wrapper = styled.form`
     display: flex;
@@ -122,10 +123,10 @@ class AddRecipe extends React.Component{
                     <InputWrapper>
                         <Select defaultValue="default" onChange={e => this.setState({recipeType: e.target.value})}>
                             <option value="default" disabled hidden>Typ potrawy</option>
-                            <option value="deser">Deser</option>
-                            <option value="zupa">Zupa</option>
-                            <option value="przystawka">Przystawka</option>
-                            <option value="daniewytrawne">Danie wytrawne</option>
+                            <option value={RecipesTypes.dessert}>Deser</option>
+                            <option value={RecipesTypes.soup}>Zupa</option>
+                            <option value={RecipesTypes.appetizer}>Przystawka</option>
+                            <option value={RecipesTypes.mainCourse}>Danie główne</option>
                         </Select>
                     </InputWrapper>
 
