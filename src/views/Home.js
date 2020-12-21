@@ -22,7 +22,6 @@ class Home extends Component{
     componentDidMount(){
         getTopRecipes(5)
         .then(response => {
-            console.log(response.data)
             this.setState({
                 recipes: response.data.recipes,
                 isLoaded: true

@@ -4,7 +4,7 @@ import Navbar from '../components/organisms/Navbar/Navbar';
 import SignInPanel from '../components/organisms/SignInPanel/SignInPanel';
 import Modal from '../components/organisms/Modal/Modal';
 import { connect } from 'react-redux';
-import { authenticateUser as authenticateUserAction } from '../actions';
+import { saveUserParams as saveUserParamsAction } from '../actions';
 
 const StyledWrapper = styled.div`
 
@@ -16,9 +16,12 @@ const StyledWrapper = styled.div`
 class MainTemplate extends React.Component{
 
     componentDidMount(){
-        // if(localStorage.getItem("userID").length>0){
-        //     this.props.authenticateUser();
-        // }  
+        if(localStorage.getItem("userID").length>0){
+            console.log()
+            this.props.saveUserParams();
+            // console.log('authenticate user');
+            
+        }  
     }
     
     render(){
@@ -44,7 +47,7 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-    authenticateUser: () => (dispatch(authenticateUserAction))
+    saveUserParams: () => dispatch(saveUserParamsAction())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(MainTemplate);

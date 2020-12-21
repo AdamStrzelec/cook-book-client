@@ -4,6 +4,7 @@ import { signInUser, signUpUser } from '../api';
 function dispatchUserRegistration(response, dispatch, actionType){
     localStorage.setItem("token", response.data.token);
     localStorage.setItem("userID", response.data.userId);
+    localStorage.setItem("userName", response.data.userName);
     
     dispatch({
         type: actionType,
@@ -114,8 +115,18 @@ export const authenticateUser = (dispatch) => {
     })
 }
 
+export const saveUserParams = () => {
+    return{
+        type: 'SAVE_USER',
+        payload: {
+            userID: localStorage.getItem("userID"),
+            userName: localStorage.getItem("userName"),
+        }
+    }
+}
+
+
 export const setSearchbarIpnutString = (searchbarInputString) => {
-    // console.log(searchbarInputString)
     return {
         type: 'SET_SEARCHBAR_INPUT_STRING',
         payload: {

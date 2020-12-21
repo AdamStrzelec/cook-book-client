@@ -14,7 +14,7 @@ import { recipeTypeStringReplaceCharacters } from '../utils/recipeTypeStringRepl
 
 
 const Wrapper = styled.div`
-    width: 100%;
+    width: 97vw;
     @media(max-width: 767px){
         flex-direction: column;
         justify-content: center;
@@ -198,7 +198,7 @@ class Recipe extends Component{
                             </TypeWrapper>
                             <GradeWrapper>
                                 <StyledParagraph>
-                                    <Span>Średnia ocena: </Span>{averageRate} / 5
+                                    <Span>Średnia ocena: </Span>{averageRate.toString().substring(0,4)} / 5
                                 </StyledParagraph>
                             </GradeWrapper>
                             <AddGradeWrapper>

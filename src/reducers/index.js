@@ -28,6 +28,8 @@ const rootReducer = (state = initialState, action) => {
             return {...state, userID: action.payload.userID, isSignInPanelOpen: action.payload.isSignInPanelOpen, userName: action.payload.userName}
         case 'LOGOUT':
             return {...state, userID: action.payload.userID, userName: ''}
+        case 'SAVE_USER':
+            return {...state, userID: action.payload.userID, userName: action.payload.userName}
         case 'AUTHENTICATE':
             return {...state, userID: action.payload.userID, userName: action.payload.userName}
         case 'SET_SEARCHBAR_INPUT_STRING':
