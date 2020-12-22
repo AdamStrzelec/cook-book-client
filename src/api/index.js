@@ -1,6 +1,6 @@
 import axios from 'axios';
-// const url = 'http://localhost:4000';
-const url = 'https://damp-beach-18434.herokuapp.com';
+const url = 'http://localhost:4000';
+// const url = 'https://damp-beach-18434.herokuapp.com';
 
 export const signInUser = (userName, password) => {
     return axios.post(url+'/user/login', {
