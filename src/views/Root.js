@@ -34,7 +34,6 @@ const GlobalStyle = createGlobalStyle`
   }
 `
 
-// window.store = store;
 class Root extends Component {
 
   render(){
