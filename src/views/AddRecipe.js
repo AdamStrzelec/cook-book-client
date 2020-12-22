@@ -11,7 +11,7 @@ import AddIngredientPanel from '../components/molecules/AddingIngredientPanel/Ad
 import Paragraph from '../components/atoms/Paragraph/Paragraph';
 import Ingredient from '../components/atoms/Ingredient/Ingredient';
 import isArrayContainProperty from '../utils/isArrayContainProperty';
-import { addRecie } from '../api';
+import { addRecipe } from '../api';
 import { openModal as openModalAction } from '../actions';
 import { RecipesTypes } from '../RecipesTypes';
 
@@ -87,13 +87,14 @@ class AddRecipe extends React.Component{
             type: this.state.recipeType,
             description: this.state.description,
             ingredients: [...this.state.ingredients],
-            preparationDescription: this.state.prepareDescription
+            preparationDescription: this.state.prepareDescription,
+            imagePath: this.state.recipeImg
         }
-        const formData = new FormData();
-        formData.set('recipe', JSON.stringify(recipe));
-        formData.append('recipeImg', this.state.recipeImg)
+        // const formData = new FormData();
+        // formData.set('recipe', JSON.stringify(recipe));
+        // formData.append('recipeImg', this.state.recipeImg)
         if(this.isDataValidable()){
-            addRecie(formData)
+            addRecipe(recipe)
             .then(response => {
                 this.props.openModal('Pomyślnie dodano nowy przepis');
                 this.setState({
@@ -155,9 +156,11 @@ class AddRecipe extends React.Component{
                     <InputWrapper>
                         <Input tag={'textarea'} placeholder={'Opis przygotowania'} getValue={prepareDescription => this.setState({prepareDescription})}/>
                     </InputWrapper>
+
                     <InputWrapper>
-                        <input type="file" name='file' onChange={(e) => this.onFileChange(e)}/>
+                        <Input getValue={recipeImg => this.setState({recipeImg})} type={'text'} placeholder={'Link do obrazka'}/>
                     </InputWrapper>
+                    
                     <InputWrapper right>
                         <Button primary onClick={(e)=>this.onSubmit(e)}>Dodaj przepis</Button>
                     </InputWrapper>

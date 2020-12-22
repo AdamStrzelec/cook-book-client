@@ -16,12 +16,17 @@ export const signUpUser = (email, userName, password) => {
     })
 }
 
-export const addRecie = (formData) => {
-    return axios.post(url+'/recipe', formData, {
-        headers: {
-            Authorization: 'Bearer ' + localStorage.getItem("token")
+export const addRecipe = (recipe) => {
+    return axios.post(url+'/recipe',  
+        {
+            recipe
+        },
+        {
+            headers: {
+                Authorization: 'Bearer ' + localStorage.getItem("token")
+            }
         }
-    })
+    )
 }
 
 export const getRecipes = (pageNumber=1, options, name) => {
