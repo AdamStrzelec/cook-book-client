@@ -4,12 +4,20 @@ import MainTemplate from '../templates/MainTemplate';
 import GreetingPanel from '../components/organisms/GreetingPanel/GreetingPanel';
 import RecipeItem from '../components/molecules/RecipeIcon/RecipeItem';
 import Header from '../components/atoms/Header/Header';
+import Loader from 'react-loader-spinner';
 import { getTopRecipes } from '../api';
 
 const StyledHeader = styled(Header)`
     text-align: center;
     margin: 20px 0;
     color: #2C3E50;
+`
+const LoadingWrapper = styled.div`
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 `
 
 class Home extends Component{
@@ -51,7 +59,14 @@ class Home extends Component{
                 )
             }
             </> : 
-            <></>
+            <LoadingWrapper>
+                <Loader
+                    type="Oval"
+                    color="#00BFFF"
+                    height={450}
+                    width={100}
+                />
+            </LoadingWrapper>
             }
             </MainTemplate>
         )
